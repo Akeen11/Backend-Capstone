@@ -7,22 +7,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BackendCapstone.Data;
 using BackendCapstone.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace BackendCapstone.Controllers
 {
     public class MessagesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public MessagesController(ApplicationDbContext context)
+        public MessagesController(ApplicationDbContext ctx,
+                          UserManager<ApplicationUser> userManager)
         {
-            _context = context;
+            _userManager = userManager;
+            _context = ctx;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Messages
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Messages.Include(m => m.User).Include(m => m.Vet);
+            var user = await GetCurrentUserAsync();
+
+            var applicationDbContext = _context.Messages.Include(m => m.User).Include(m => m.Vet).Where(m => m.UserId == user.Id || m.VetId == user.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -47,11 +55,21 @@ namespace BackendCapstone.Controllers
         }
 
         // GET: Messages/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var user = await GetCurrentUserAsync();
+
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            return View();
+
+            if (user.IsVet == null)
+            {
+                ViewData["VetId"] = new SelectList(_context.ApplicationUsers.Where(v => v.IsVet == true), "FullName", "FullName");
+                return View();
+            }
+            else{
+                ViewData["VetId"] = new SelectList(_context.ApplicationUsers.Where(u => u.IsVet != true), "FullName", "FullName");
+                return View();
+            }
         }
 
         // POST: Messages/Create
@@ -61,6 +79,13 @@ namespace BackendCapstone.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MessageId,VetId,UserId,Messages")] Message message)
         {
+            var user = await GetCurrentUserAsync();
+            message.User = user;
+            message.UserId = user.Id;
+
+            ModelState.Remove("UserId");
+            ModelState.Remove("User");
+
             if (ModelState.IsValid)
             {
                 _context.Add(message);
@@ -68,7 +93,7 @@ namespace BackendCapstone.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", message.UserId);
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", message.VetId);
+            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "FullName", "FullName", message.VetId);
             return View(message);
         }
 

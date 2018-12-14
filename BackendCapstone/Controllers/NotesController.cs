@@ -7,17 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BackendCapstone.Data;
 using BackendCapstone.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace BackendCapstone.Controllers
 {
     public class NotesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public NotesController(ApplicationDbContext context)
+        public NotesController(ApplicationDbContext ctx,
+                          UserManager<ApplicationUser> userManager)
         {
-            _context = context;
+            _userManager = userManager;
+            _context = ctx;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Notes
         public async Task<IActionResult> Index()
@@ -47,11 +53,21 @@ namespace BackendCapstone.Controllers
         }
 
         // GET: Notes/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var user = await GetCurrentUserAsync();
+
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            return View();
+            if (user.IsVet == null)
+            {
+                ViewData["VetId"] = new SelectList(_context.ApplicationUsers.Where(v => v.IsVet == true), "FullName", "FullName");
+                return View();
+            }
+            else
+            {
+                ViewData["VetId"] = new SelectList(_context.ApplicationUsers.Where(u => u.IsVet != true), "FullName", "FullName");
+                return View();
+            }
         }
 
         // POST: Notes/Create
@@ -61,6 +77,13 @@ namespace BackendCapstone.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NoteId,VetId,UserId,Message")] Note note)
         {
+            var user = await GetCurrentUserAsync();
+            note.User = user;
+            note.UserId = user.Id;
+
+            ModelState.Remove("UserId");
+            ModelState.Remove("User");
+
             if (ModelState.IsValid)
             {
                 _context.Add(note);
@@ -68,7 +91,7 @@ namespace BackendCapstone.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", note.UserId);
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", note.VetId);
+            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "FullName", "FullName", note.VetId);
             return View(note);
         }
 

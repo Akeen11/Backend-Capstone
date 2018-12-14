@@ -287,8 +287,8 @@ namespace BackendCapstone.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "IsVet", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "StreetAddress", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "cb594590-7a59-42af-bdda-b8fd4a7802be", 0, "3b7b4ae1-b13d-4fcc-9fa1-97b8ec73536e", "admin@admin.com", true, "admin", true, "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAENZLLcMQmxc04+QRx0c/HFOVp20wrsayqr2QdcCUcyhjtu0/QYPuz8y20KF5Ag5xGw==", null, false, "5c2c358d-acc7-4d78-8d76-759bae874d74", "123 Infinity Way", false, "admin@admin.com" },
-                    { "43af31c1-c40e-4143-a1ef-6616ccde1602", 0, "9c8c3549-fa3e-45d6-8d4b-db6a13848026", "aaron@aaron.com", true, "aaron", null, "aaron", false, null, "AARON@AARON.COM", "AARON@AARON.COM", "AQAAAAEAACcQAAAAEM377yrnY5AwW95DhZv8Mf1tf9R2BVsEmSp4hfYuUkvxj5XRFNnqxvh3Lv4c/UovBg==", null, false, "36c69a5d-e940-4f6e-9ff8-9b89e9bfc6f0", "123 Infinity Way", false, "aaron@aaron.com" }
+                    { "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b", 0, "7fdbc61c-0459-462a-9381-2a869ac15547", "admin@admin.com", true, "admin", true, "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEDXekLaRbjqF7RvQiq4cyPxw+cLYRwiJMcwfTt1M0iX29CwMGDLD4bjwSF1tWTULWQ==", null, false, "b1805040-7821-428b-9303-6294c66ac57b", "123 Infinity Way", false, "admin@admin.com" },
+                    { "dc4397a2-758a-43f2-be30-8312c2cee0f6", 0, "d846dd43-fb57-482c-ba81-9a0e0c3c53e5", "aaron@aaron.com", true, "aaron", null, "aaron", false, null, "AARON@AARON.COM", "AARON@AARON.COM", "AQAAAAEAACcQAAAAEPUQwqsaAWtTCFl7UoI83tmBrF7ctvYQXXoUvcrpUHGmVGPC17Q8Zc95upDPVZqihQ==", null, false, "85198351-8b7a-4071-a4a6-fc8f5419a128", "123 Infinity Way", false, "aaron@aaron.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -307,10 +307,10 @@ namespace BackendCapstone.Migrations
                 columns: new[] { "MessageId", "Messages", "UserId", "VetId" },
                 values: new object[,]
                 {
-                    { 1, "Hi", "43af31c1-c40e-4143-a1ef-6616ccde1602", "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                    { 2, "Hello", "43af31c1-c40e-4143-a1ef-6616ccde1602", "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                    { 3, "How are you", "43af31c1-c40e-4143-a1ef-6616ccde1602", "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                    { 4, "I'm good", "43af31c1-c40e-4143-a1ef-6616ccde1602", "cb594590-7a59-42af-bdda-b8fd4a7802be" }
+                    { 1, "Hi", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                    { 2, "Hello", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                    { 3, "How are you", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                    { 4, "I'm good", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" }
                 });
 
             migrationBuilder.InsertData(
@@ -318,8 +318,8 @@ namespace BackendCapstone.Migrations
                 columns: new[] { "NoteId", "Message", "UserId", "VetId" },
                 values: new object[,]
                 {
-                    { 1, "Get shots", "43af31c1-c40e-4143-a1ef-6616ccde1602", "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                    { 2, "Happy pupper", "43af31c1-c40e-4143-a1ef-6616ccde1602", "cb594590-7a59-42af-bdda-b8fd4a7802be" }
+                    { 1, "Get shots", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                    { 2, "Happy pupper", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" }
                 });
 
             migrationBuilder.InsertData(
@@ -327,10 +327,10 @@ namespace BackendCapstone.Migrations
                 columns: new[] { "PetId", "Age", "ImagePath", "Name", "Status", "UserId", "VetId" },
                 values: new object[,]
                 {
-                    { 1, 1, null, "Gunner", "Healthy", "43af31c1-c40e-4143-a1ef-6616ccde1602", "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                    { 2, 1, null, "Marley", "Sick", "43af31c1-c40e-4143-a1ef-6616ccde1602", "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                    { 3, 1, null, "Whitley", "Beat up", "43af31c1-c40e-4143-a1ef-6616ccde1602", "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                    { 4, 1, null, "Rocky", "Healthy", "43af31c1-c40e-4143-a1ef-6616ccde1602", "cb594590-7a59-42af-bdda-b8fd4a7802be" }
+                    { 1, 1, null, "Gunner", "Healthy", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                    { 2, 1, null, "Marley", "Sick", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                    { 3, 1, null, "Whitley", "Beat up", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                    { 4, 1, null, "Rocky", "Healthy", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" }
                 });
 
             migrationBuilder.InsertData(

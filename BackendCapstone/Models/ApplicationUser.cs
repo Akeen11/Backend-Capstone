@@ -22,6 +22,8 @@ namespace BackendCapstone.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        public string FullName => $"{FirstName} {LastName}";
+
         [Required]
         public string StreetAddress { get; set; }
 

@@ -7,16 +7,49 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BackendCapstone.Data;
 using BackendCapstone.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BackendCapstone.Controllers
 {
     public class PetsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public PetsController(ApplicationDbContext context)
+        public PetsController(ApplicationDbContext ctx,
+                          UserManager<ApplicationUser> userManager)
         {
-            _context = context;
+            _userManager = userManager;
+            _context = ctx;
+        }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
+        public async Task<IActionResult> VetUserIndex()
+        {
+            var user = await GetCurrentUserAsync();
+
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Pets");
+            }
+
+            if (user.IsVet == true)
+            {
+                var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet).Where(p => p.VetId == user.Id);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else if (user.IsVet == null)
+            {
+                var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet).Where(p => p.UserId == user.Id);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else
+            {
+                var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet);
+                return View(await applicationDbContext.ToListAsync());
+            }
         }
 
         // GET: Pets
@@ -47,10 +80,11 @@ namespace BackendCapstone.Controllers
         }
 
         // GET: Pets/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+            ViewData["VetId"] = new SelectList(_context.ApplicationUsers.Where(v => v.IsVet == true), "FullName", "FullName");
             return View();
         }
 
@@ -61,14 +95,19 @@ namespace BackendCapstone.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PetId,VetId,UserId,Name,Age,Status,ImagePath")] Pet pet)
         {
+            var user = await GetCurrentUserAsync();
+            pet.User = user;
+            pet.UserId = user.Id;
+
+            ModelState.Remove("UserId");
+            ModelState.Remove("User");
+
             if (ModelState.IsValid)
             {
                 _context.Add(pet);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", pet.UserId);
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", pet.VetId);
             return View(pet);
         }
 

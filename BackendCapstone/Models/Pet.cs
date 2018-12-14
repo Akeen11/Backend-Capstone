@@ -12,6 +12,7 @@ namespace BackendCapstone.Models
         public int PetId { get; set; }
 
         [Required]
+        [Display(Name = "Choose Vet")]
         public string VetId { get; set; }
 
         public ApplicationUser Vet { get; set; }

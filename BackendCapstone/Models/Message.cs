@@ -12,6 +12,7 @@ namespace BackendCapstone.Models
         public int MessageId { get; set; }
 
         [Required]
+        [Display(Name = "Send To:")]
         public string VetId { get; set; }
 
         public ApplicationUser Vet { get; set; }
@@ -23,6 +24,7 @@ namespace BackendCapstone.Models
         public ApplicationUser User { get; set; }
 
         [Required]
+        [Display(Name = "Message")]
         public string Messages { get; set; }
     }
 }

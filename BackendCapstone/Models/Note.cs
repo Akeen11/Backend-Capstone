@@ -12,6 +12,7 @@ namespace BackendCapstone.Models
         public int NoteId { get; set; }
 
         [Required]
+        [Display(Name = "Send To:")]
         public string VetId { get; set; }
 
         public ApplicationUser Vet { get; set; }

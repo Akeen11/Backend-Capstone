@@ -81,8 +81,8 @@ namespace BackendCapstone.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "cb594590-7a59-42af-bdda-b8fd4a7802be", AccessFailedCount = 0, ConcurrencyStamp = "3b7b4ae1-b13d-4fcc-9fa1-97b8ec73536e", Email = "admin@admin.com", EmailConfirmed = true, FirstName = "admin", IsVet = true, LastName = "admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAENZLLcMQmxc04+QRx0c/HFOVp20wrsayqr2QdcCUcyhjtu0/QYPuz8y20KF5Ag5xGw==", PhoneNumberConfirmed = false, SecurityStamp = "5c2c358d-acc7-4d78-8d76-759bae874d74", StreetAddress = "123 Infinity Way", TwoFactorEnabled = false, UserName = "admin@admin.com" },
-                        new { Id = "43af31c1-c40e-4143-a1ef-6616ccde1602", AccessFailedCount = 0, ConcurrencyStamp = "9c8c3549-fa3e-45d6-8d4b-db6a13848026", Email = "aaron@aaron.com", EmailConfirmed = true, FirstName = "aaron", LastName = "aaron", LockoutEnabled = false, NormalizedEmail = "AARON@AARON.COM", NormalizedUserName = "AARON@AARON.COM", PasswordHash = "AQAAAAEAACcQAAAAEM377yrnY5AwW95DhZv8Mf1tf9R2BVsEmSp4hfYuUkvxj5XRFNnqxvh3Lv4c/UovBg==", PhoneNumberConfirmed = false, SecurityStamp = "36c69a5d-e940-4f6e-9ff8-9b89e9bfc6f0", StreetAddress = "123 Infinity Way", TwoFactorEnabled = false, UserName = "aaron@aaron.com" }
+                        new { Id = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b", AccessFailedCount = 0, ConcurrencyStamp = "7fdbc61c-0459-462a-9381-2a869ac15547", Email = "admin@admin.com", EmailConfirmed = true, FirstName = "admin", IsVet = true, LastName = "admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEDXekLaRbjqF7RvQiq4cyPxw+cLYRwiJMcwfTt1M0iX29CwMGDLD4bjwSF1tWTULWQ==", PhoneNumberConfirmed = false, SecurityStamp = "b1805040-7821-428b-9303-6294c66ac57b", StreetAddress = "123 Infinity Way", TwoFactorEnabled = false, UserName = "admin@admin.com" },
+                        new { Id = "dc4397a2-758a-43f2-be30-8312c2cee0f6", AccessFailedCount = 0, ConcurrencyStamp = "d846dd43-fb57-482c-ba81-9a0e0c3c53e5", Email = "aaron@aaron.com", EmailConfirmed = true, FirstName = "aaron", LastName = "aaron", LockoutEnabled = false, NormalizedEmail = "AARON@AARON.COM", NormalizedUserName = "AARON@AARON.COM", PasswordHash = "AQAAAAEAACcQAAAAEPUQwqsaAWtTCFl7UoI83tmBrF7ctvYQXXoUvcrpUHGmVGPC17Q8Zc95upDPVZqihQ==", PhoneNumberConfirmed = false, SecurityStamp = "85198351-8b7a-4071-a4a6-fc8f5419a128", StreetAddress = "123 Infinity Way", TwoFactorEnabled = false, UserName = "aaron@aaron.com" }
                     );
                 });
 
@@ -110,10 +110,10 @@ namespace BackendCapstone.Migrations
                     b.ToTable("Messages");
 
                     b.HasData(
-                        new { MessageId = 1, Messages = "Hi", UserId = "43af31c1-c40e-4143-a1ef-6616ccde1602", VetId = "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                        new { MessageId = 2, Messages = "Hello", UserId = "43af31c1-c40e-4143-a1ef-6616ccde1602", VetId = "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                        new { MessageId = 3, Messages = "How are you", UserId = "43af31c1-c40e-4143-a1ef-6616ccde1602", VetId = "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                        new { MessageId = 4, Messages = "I'm good", UserId = "43af31c1-c40e-4143-a1ef-6616ccde1602", VetId = "cb594590-7a59-42af-bdda-b8fd4a7802be" }
+                        new { MessageId = 1, Messages = "Hi", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                        new { MessageId = 2, Messages = "Hello", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                        new { MessageId = 3, Messages = "How are you", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                        new { MessageId = 4, Messages = "I'm good", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" }
                     );
                 });
 
@@ -141,8 +141,8 @@ namespace BackendCapstone.Migrations
                     b.ToTable("Notes");
 
                     b.HasData(
-                        new { NoteId = 1, Message = "Get shots", UserId = "43af31c1-c40e-4143-a1ef-6616ccde1602", VetId = "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                        new { NoteId = 2, Message = "Happy pupper", UserId = "43af31c1-c40e-4143-a1ef-6616ccde1602", VetId = "cb594590-7a59-42af-bdda-b8fd4a7802be" }
+                        new { NoteId = 1, Message = "Get shots", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                        new { NoteId = 2, Message = "Happy pupper", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" }
                     );
                 });
 
@@ -177,10 +177,10 @@ namespace BackendCapstone.Migrations
                     b.ToTable("Pets");
 
                     b.HasData(
-                        new { PetId = 1, Age = 1, Name = "Gunner", Status = "Healthy", UserId = "43af31c1-c40e-4143-a1ef-6616ccde1602", VetId = "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                        new { PetId = 2, Age = 1, Name = "Marley", Status = "Sick", UserId = "43af31c1-c40e-4143-a1ef-6616ccde1602", VetId = "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                        new { PetId = 3, Age = 1, Name = "Whitley", Status = "Beat up", UserId = "43af31c1-c40e-4143-a1ef-6616ccde1602", VetId = "cb594590-7a59-42af-bdda-b8fd4a7802be" },
-                        new { PetId = 4, Age = 1, Name = "Rocky", Status = "Healthy", UserId = "43af31c1-c40e-4143-a1ef-6616ccde1602", VetId = "cb594590-7a59-42af-bdda-b8fd4a7802be" }
+                        new { PetId = 1, Age = 1, Name = "Gunner", Status = "Healthy", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                        new { PetId = 2, Age = 1, Name = "Marley", Status = "Sick", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                        new { PetId = 3, Age = 1, Name = "Whitley", Status = "Beat up", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
+                        new { PetId = 4, Age = 1, Name = "Rocky", Status = "Healthy", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" }
                     );
                 });
 
