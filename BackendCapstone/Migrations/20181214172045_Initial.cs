@@ -178,22 +178,22 @@ namespace BackendCapstone.Migrations
                 {
                     MessageId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    VetId = table.Column<string>(nullable: false),
-                    UserId = table.Column<string>(nullable: false),
+                    ReceivingUserId = table.Column<string>(nullable: false),
+                    SendingUserId = table.Column<string>(nullable: false),
                     Messages = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Messages", x => x.MessageId);
                     table.ForeignKey(
-                        name: "FK_Messages_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Messages_AspNetUsers_ReceivingUserId",
+                        column: x => x.ReceivingUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Messages_AspNetUsers_VetId",
-                        column: x => x.VetId,
+                        name: "FK_Messages_AspNetUsers_SendingUserId",
+                        column: x => x.SendingUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
@@ -205,22 +205,22 @@ namespace BackendCapstone.Migrations
                 {
                     NoteId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    VetId = table.Column<string>(nullable: false),
-                    UserId = table.Column<string>(nullable: false),
+                    ReceivingUserId = table.Column<string>(nullable: false),
+                    SendingUserId = table.Column<string>(nullable: false),
                     Message = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Notes", x => x.NoteId);
                     table.ForeignKey(
-                        name: "FK_Notes_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Notes_AspNetUsers_ReceivingUserId",
+                        column: x => x.ReceivingUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Notes_AspNetUsers_VetId",
-                        column: x => x.VetId,
+                        name: "FK_Notes_AspNetUsers_SendingUserId",
+                        column: x => x.SendingUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
@@ -287,8 +287,8 @@ namespace BackendCapstone.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "IsVet", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "StreetAddress", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b", 0, "7fdbc61c-0459-462a-9381-2a869ac15547", "admin@admin.com", true, "admin", true, "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEDXekLaRbjqF7RvQiq4cyPxw+cLYRwiJMcwfTt1M0iX29CwMGDLD4bjwSF1tWTULWQ==", null, false, "b1805040-7821-428b-9303-6294c66ac57b", "123 Infinity Way", false, "admin@admin.com" },
-                    { "dc4397a2-758a-43f2-be30-8312c2cee0f6", 0, "d846dd43-fb57-482c-ba81-9a0e0c3c53e5", "aaron@aaron.com", true, "aaron", null, "aaron", false, null, "AARON@AARON.COM", "AARON@AARON.COM", "AQAAAAEAACcQAAAAEPUQwqsaAWtTCFl7UoI83tmBrF7ctvYQXXoUvcrpUHGmVGPC17Q8Zc95upDPVZqihQ==", null, false, "85198351-8b7a-4071-a4a6-fc8f5419a128", "123 Infinity Way", false, "aaron@aaron.com" }
+                    { "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", 0, "bd7e7d01-9d99-4ba9-ad90-1e817edfbf7b", "admin@admin.com", true, "admin", true, "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEIMgpvq1poiycusrSapiyfPsl3+dI/f72Oysl1cOIvqLKt7WyapuxVK43R0GgUjQkg==", null, false, "c75a8974-7d24-4125-ad77-5584979ca077", "123 Infinity Way", false, "admin@admin.com" },
+                    { "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b", 0, "1eb202a8-e46d-4269-9c74-aaed04f2b3fd", "aaron@aaron.com", true, "aaron", null, "aaron", false, null, "AARON@AARON.COM", "AARON@AARON.COM", "AQAAAAEAACcQAAAAEIjbiqecILyIrDV3PkgfOFTp5XBSn2yA8bFu4QxuG6bHh42wBDpZzW6UItHD4kQfpw==", null, false, "4e6a2d6a-b25e-48bf-b178-9a41b067ef89", "123 Infinity Way", false, "aaron@aaron.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -304,22 +304,22 @@ namespace BackendCapstone.Migrations
 
             migrationBuilder.InsertData(
                 table: "Messages",
-                columns: new[] { "MessageId", "Messages", "UserId", "VetId" },
+                columns: new[] { "MessageId", "Messages", "ReceivingUserId", "SendingUserId" },
                 values: new object[,]
                 {
-                    { 1, "Hi", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                    { 2, "Hello", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                    { 3, "How are you", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                    { 4, "I'm good", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" }
+                    { 1, "Hi", "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b" },
+                    { 2, "Hello", "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b" },
+                    { 3, "How are you", "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b" },
+                    { 4, "I'm good", "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Notes",
-                columns: new[] { "NoteId", "Message", "UserId", "VetId" },
+                columns: new[] { "NoteId", "Message", "ReceivingUserId", "SendingUserId" },
                 values: new object[,]
                 {
-                    { 1, "Get shots", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                    { 2, "Happy pupper", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" }
+                    { 1, "Get shots", "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b" },
+                    { 2, "Happy pupper", "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b" }
                 });
 
             migrationBuilder.InsertData(
@@ -327,10 +327,10 @@ namespace BackendCapstone.Migrations
                 columns: new[] { "PetId", "Age", "ImagePath", "Name", "Status", "UserId", "VetId" },
                 values: new object[,]
                 {
-                    { 1, 1, null, "Gunner", "Healthy", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                    { 2, 1, null, "Marley", "Sick", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                    { 3, 1, null, "Whitley", "Beat up", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                    { 4, 1, null, "Rocky", "Healthy", "dc4397a2-758a-43f2-be30-8312c2cee0f6", "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" }
+                    { 1, 1, null, "Gunner", "Healthy", "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b", "61577fe1-1fad-4ef8-97f2-c0659eaa95f1" },
+                    { 2, 1, null, "Marley", "Sick", "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b", "61577fe1-1fad-4ef8-97f2-c0659eaa95f1" },
+                    { 3, 1, null, "Whitley", "Beat up", "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b", "61577fe1-1fad-4ef8-97f2-c0659eaa95f1" },
+                    { 4, 1, null, "Rocky", "Healthy", "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b", "61577fe1-1fad-4ef8-97f2-c0659eaa95f1" }
                 });
 
             migrationBuilder.InsertData(
@@ -383,24 +383,24 @@ namespace BackendCapstone.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_UserId",
+                name: "IX_Messages_ReceivingUserId",
                 table: "Messages",
-                column: "UserId");
+                column: "ReceivingUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_VetId",
+                name: "IX_Messages_SendingUserId",
                 table: "Messages",
-                column: "VetId");
+                column: "SendingUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notes_UserId",
+                name: "IX_Notes_ReceivingUserId",
                 table: "Notes",
-                column: "UserId");
+                column: "ReceivingUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notes_VetId",
+                name: "IX_Notes_SendingUserId",
                 table: "Notes",
-                column: "VetId");
+                column: "SendingUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pets_UserId",

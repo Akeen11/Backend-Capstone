@@ -30,7 +30,7 @@ namespace BackendCapstone.Controllers
         {
             var user = await GetCurrentUserAsync();
 
-            var applicationDbContext = _context.Messages.Include(m => m.User).Include(m => m.Vet).Where(m => m.UserId == user.Id || m.VetId == user.Id);
+            var applicationDbContext = _context.Messages.Include(m => m.SendingUser).Include(m => m.ReceivingUser).Where(m => m.SendingUserId == user.Id || m.ReceivingUserId == user.Id).OrderByDescending(m => m.MessageId);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -43,8 +43,8 @@ namespace BackendCapstone.Controllers
             }
 
             var message = await _context.Messages
-                .Include(m => m.User)
-                .Include(m => m.Vet)
+                .Include(m => m.SendingUser)
+                .Include(m => m.ReceivingUser)
                 .FirstOrDefaultAsync(m => m.MessageId == id);
             if (message == null)
             {
@@ -59,15 +59,15 @@ namespace BackendCapstone.Controllers
         {
             var user = await GetCurrentUserAsync();
 
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+            ViewData["SendingUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
 
-            if (user.IsVet == null)
+            if (user.IsVet != true)
             {
-                ViewData["VetId"] = new SelectList(_context.ApplicationUsers.Where(v => v.IsVet == true), "FullName", "FullName");
+                ViewData["ReceivingUserId"] = new SelectList(_context.ApplicationUsers.Where(v => v.IsVet == true), "Id", "FullName");
                 return View();
             }
             else{
-                ViewData["VetId"] = new SelectList(_context.ApplicationUsers.Where(u => u.IsVet != true), "FullName", "FullName");
+                ViewData["ReceivingUserId"] = new SelectList(_context.ApplicationUsers.Where(u => u.IsVet != true), "Id", "FullName");
                 return View();
             }
         }
@@ -77,14 +77,14 @@ namespace BackendCapstone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MessageId,VetId,UserId,Messages")] Message message)
+        public async Task<IActionResult> Create([Bind("MessageId,ReceivingUserId,SendingUserId,Messages")] Message message)
         {
             var user = await GetCurrentUserAsync();
-            message.User = user;
-            message.UserId = user.Id;
+            message.SendingUser = user;
+            message.SendingUserId = user.Id;
 
-            ModelState.Remove("UserId");
-            ModelState.Remove("User");
+            ModelState.Remove("SendingUserId");
+            ModelState.Remove("SendingUser");
 
             if (ModelState.IsValid)
             {
@@ -92,8 +92,8 @@ namespace BackendCapstone.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", message.UserId);
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "FullName", "FullName", message.VetId);
+            ViewData["SendingUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", message.SendingUserId);
+            ViewData["ReceivingUserId"] = new SelectList(_context.ApplicationUsers, "Id", "FullName", message.ReceivingUserId);
             return View(message);
         }
 
@@ -110,8 +110,8 @@ namespace BackendCapstone.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", message.UserId);
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", message.VetId);
+            ViewData["SendingUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", message.SendingUserId);
+            ViewData["ReceivingUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", message.ReceivingUserId);
             return View(message);
         }
 
@@ -120,7 +120,7 @@ namespace BackendCapstone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MessageId,VetId,UserId,Messages")] Message message)
+        public async Task<IActionResult> Edit(int id, [Bind("MessageId,ReceivingUserId,SendingUserId,Messages")] Message message)
         {
             if (id != message.MessageId)
             {
@@ -147,8 +147,8 @@ namespace BackendCapstone.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", message.UserId);
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", message.VetId);
+            ViewData["SendingUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", message.SendingUserId);
+            ViewData["ReceivingUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", message.ReceivingUserId);
             return View(message);
         }
 
@@ -161,8 +161,8 @@ namespace BackendCapstone.Controllers
             }
 
             var message = await _context.Messages
-                .Include(m => m.User)
-                .Include(m => m.Vet)
+                .Include(m => m.SendingUser)
+                .Include(m => m.ReceivingUser)
                 .FirstOrDefaultAsync(m => m.MessageId == id);
             if (message == null)
             {

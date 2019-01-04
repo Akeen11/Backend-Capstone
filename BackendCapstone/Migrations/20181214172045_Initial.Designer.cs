@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackendCapstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181213214304_Initial")]
+    [Migration("20181214172045_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,8 +83,8 @@ namespace BackendCapstone.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b", AccessFailedCount = 0, ConcurrencyStamp = "7fdbc61c-0459-462a-9381-2a869ac15547", Email = "admin@admin.com", EmailConfirmed = true, FirstName = "admin", IsVet = true, LastName = "admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEDXekLaRbjqF7RvQiq4cyPxw+cLYRwiJMcwfTt1M0iX29CwMGDLD4bjwSF1tWTULWQ==", PhoneNumberConfirmed = false, SecurityStamp = "b1805040-7821-428b-9303-6294c66ac57b", StreetAddress = "123 Infinity Way", TwoFactorEnabled = false, UserName = "admin@admin.com" },
-                        new { Id = "dc4397a2-758a-43f2-be30-8312c2cee0f6", AccessFailedCount = 0, ConcurrencyStamp = "d846dd43-fb57-482c-ba81-9a0e0c3c53e5", Email = "aaron@aaron.com", EmailConfirmed = true, FirstName = "aaron", LastName = "aaron", LockoutEnabled = false, NormalizedEmail = "AARON@AARON.COM", NormalizedUserName = "AARON@AARON.COM", PasswordHash = "AQAAAAEAACcQAAAAEPUQwqsaAWtTCFl7UoI83tmBrF7ctvYQXXoUvcrpUHGmVGPC17Q8Zc95upDPVZqihQ==", PhoneNumberConfirmed = false, SecurityStamp = "85198351-8b7a-4071-a4a6-fc8f5419a128", StreetAddress = "123 Infinity Way", TwoFactorEnabled = false, UserName = "aaron@aaron.com" }
+                        new { Id = "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", AccessFailedCount = 0, ConcurrencyStamp = "bd7e7d01-9d99-4ba9-ad90-1e817edfbf7b", Email = "admin@admin.com", EmailConfirmed = true, FirstName = "admin", IsVet = true, LastName = "admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEIMgpvq1poiycusrSapiyfPsl3+dI/f72Oysl1cOIvqLKt7WyapuxVK43R0GgUjQkg==", PhoneNumberConfirmed = false, SecurityStamp = "c75a8974-7d24-4125-ad77-5584979ca077", StreetAddress = "123 Infinity Way", TwoFactorEnabled = false, UserName = "admin@admin.com" },
+                        new { Id = "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b", AccessFailedCount = 0, ConcurrencyStamp = "1eb202a8-e46d-4269-9c74-aaed04f2b3fd", Email = "aaron@aaron.com", EmailConfirmed = true, FirstName = "aaron", LastName = "aaron", LockoutEnabled = false, NormalizedEmail = "AARON@AARON.COM", NormalizedUserName = "AARON@AARON.COM", PasswordHash = "AQAAAAEAACcQAAAAEIjbiqecILyIrDV3PkgfOFTp5XBSn2yA8bFu4QxuG6bHh42wBDpZzW6UItHD4kQfpw==", PhoneNumberConfirmed = false, SecurityStamp = "4e6a2d6a-b25e-48bf-b178-9a41b067ef89", StreetAddress = "123 Infinity Way", TwoFactorEnabled = false, UserName = "aaron@aaron.com" }
                     );
                 });
 
@@ -97,25 +97,25 @@ namespace BackendCapstone.Migrations
                     b.Property<string>("Messages")
                         .IsRequired();
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("ReceivingUserId")
                         .IsRequired();
 
-                    b.Property<string>("VetId")
+                    b.Property<string>("SendingUserId")
                         .IsRequired();
 
                     b.HasKey("MessageId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ReceivingUserId");
 
-                    b.HasIndex("VetId");
+                    b.HasIndex("SendingUserId");
 
                     b.ToTable("Messages");
 
                     b.HasData(
-                        new { MessageId = 1, Messages = "Hi", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                        new { MessageId = 2, Messages = "Hello", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                        new { MessageId = 3, Messages = "How are you", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                        new { MessageId = 4, Messages = "I'm good", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" }
+                        new { MessageId = 1, Messages = "Hi", ReceivingUserId = "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", SendingUserId = "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b" },
+                        new { MessageId = 2, Messages = "Hello", ReceivingUserId = "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", SendingUserId = "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b" },
+                        new { MessageId = 3, Messages = "How are you", ReceivingUserId = "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", SendingUserId = "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b" },
+                        new { MessageId = 4, Messages = "I'm good", ReceivingUserId = "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", SendingUserId = "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b" }
                     );
                 });
 
@@ -128,23 +128,23 @@ namespace BackendCapstone.Migrations
                     b.Property<string>("Message")
                         .IsRequired();
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("ReceivingUserId")
                         .IsRequired();
 
-                    b.Property<string>("VetId")
+                    b.Property<string>("SendingUserId")
                         .IsRequired();
 
                     b.HasKey("NoteId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ReceivingUserId");
 
-                    b.HasIndex("VetId");
+                    b.HasIndex("SendingUserId");
 
                     b.ToTable("Notes");
 
                     b.HasData(
-                        new { NoteId = 1, Message = "Get shots", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                        new { NoteId = 2, Message = "Happy pupper", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" }
+                        new { NoteId = 1, Message = "Get shots", ReceivingUserId = "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", SendingUserId = "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b" },
+                        new { NoteId = 2, Message = "Happy pupper", ReceivingUserId = "61577fe1-1fad-4ef8-97f2-c0659eaa95f1", SendingUserId = "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b" }
                     );
                 });
 
@@ -179,10 +179,10 @@ namespace BackendCapstone.Migrations
                     b.ToTable("Pets");
 
                     b.HasData(
-                        new { PetId = 1, Age = 1, Name = "Gunner", Status = "Healthy", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                        new { PetId = 2, Age = 1, Name = "Marley", Status = "Sick", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                        new { PetId = 3, Age = 1, Name = "Whitley", Status = "Beat up", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" },
-                        new { PetId = 4, Age = 1, Name = "Rocky", Status = "Healthy", UserId = "dc4397a2-758a-43f2-be30-8312c2cee0f6", VetId = "a083bf3e-d2b0-4e9a-90f7-8ff78d81242b" }
+                        new { PetId = 1, Age = 1, Name = "Gunner", Status = "Healthy", UserId = "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b", VetId = "61577fe1-1fad-4ef8-97f2-c0659eaa95f1" },
+                        new { PetId = 2, Age = 1, Name = "Marley", Status = "Sick", UserId = "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b", VetId = "61577fe1-1fad-4ef8-97f2-c0659eaa95f1" },
+                        new { PetId = 3, Age = 1, Name = "Whitley", Status = "Beat up", UserId = "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b", VetId = "61577fe1-1fad-4ef8-97f2-c0659eaa95f1" },
+                        new { PetId = 4, Age = 1, Name = "Rocky", Status = "Healthy", UserId = "b8e8c2c0-a36f-45f6-8f9d-48693eb93f5b", VetId = "61577fe1-1fad-4ef8-97f2-c0659eaa95f1" }
                     );
                 });
 
@@ -352,27 +352,27 @@ namespace BackendCapstone.Migrations
 
             modelBuilder.Entity("BackendCapstone.Models.Message", b =>
                 {
-                    b.HasOne("BackendCapstone.Models.ApplicationUser", "User")
+                    b.HasOne("BackendCapstone.Models.ApplicationUser", "ReceivingUser")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("ReceivingUserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BackendCapstone.Models.ApplicationUser", "Vet")
+                    b.HasOne("BackendCapstone.Models.ApplicationUser", "SendingUser")
                         .WithMany()
-                        .HasForeignKey("VetId")
+                        .HasForeignKey("SendingUserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BackendCapstone.Models.Note", b =>
                 {
-                    b.HasOne("BackendCapstone.Models.ApplicationUser", "User")
+                    b.HasOne("BackendCapstone.Models.ApplicationUser", "ReceivingUser")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("ReceivingUserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BackendCapstone.Models.ApplicationUser", "Vet")
+                    b.HasOne("BackendCapstone.Models.ApplicationUser", "SendingUser")
                         .WithMany()
-                        .HasForeignKey("VetId")
+                        .HasForeignKey("SendingUserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

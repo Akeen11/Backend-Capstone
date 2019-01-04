@@ -28,7 +28,7 @@ namespace BackendCapstone.Controllers
         // GET: Notes
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Notes.Include(n => n.User).Include(n => n.Vet);
+            var applicationDbContext = _context.Notes.Include(n => n.SendingUser).Include(n => n.ReceivingUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -41,8 +41,8 @@ namespace BackendCapstone.Controllers
             }
 
             var note = await _context.Notes
-                .Include(n => n.User)
-                .Include(n => n.Vet)
+                .Include(n => n.SendingUser)
+                .Include(n => n.ReceivingUser)
                 .FirstOrDefaultAsync(m => m.NoteId == id);
             if (note == null)
             {
@@ -78,8 +78,8 @@ namespace BackendCapstone.Controllers
         public async Task<IActionResult> Create([Bind("NoteId,VetId,UserId,Message")] Note note)
         {
             var user = await GetCurrentUserAsync();
-            note.User = user;
-            note.UserId = user.Id;
+            note.SendingUser = user;
+            note.SendingUserId = user.Id;
 
             ModelState.Remove("UserId");
             ModelState.Remove("User");
@@ -90,8 +90,8 @@ namespace BackendCapstone.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", note.UserId);
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "FullName", "FullName", note.VetId);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", note.SendingUserId);
+            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "FullName", "FullName", note.ReceivingUserId);
             return View(note);
         }
 
@@ -108,8 +108,8 @@ namespace BackendCapstone.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", note.UserId);
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", note.VetId);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", note.SendingUserId);
+            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", note.ReceivingUserId);
             return View(note);
         }
 
@@ -145,8 +145,8 @@ namespace BackendCapstone.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", note.UserId);
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", note.VetId);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", note.SendingUserId);
+            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", note.ReceivingUserId);
             return View(note);
         }
 
@@ -159,8 +159,8 @@ namespace BackendCapstone.Controllers
             }
 
             var note = await _context.Notes
-                .Include(n => n.User)
-                .Include(n => n.Vet)
+                .Include(n => n.SendingUser)
+                .Include(n => n.ReceivingUser)
                 .FirstOrDefaultAsync(m => m.NoteId == id);
             if (note == null)
             {

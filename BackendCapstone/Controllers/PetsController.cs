@@ -40,7 +40,7 @@ namespace BackendCapstone.Controllers
                 var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet).Where(p => p.VetId == user.Id);
                 return View(await applicationDbContext.ToListAsync());
             }
-            else if (user.IsVet == null)
+            else if (user.IsVet == false)
             {
                 var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet).Where(p => p.UserId == user.Id);
                 return View(await applicationDbContext.ToListAsync());
@@ -55,8 +55,28 @@ namespace BackendCapstone.Controllers
         // GET: Pets
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet);
-            return View(await applicationDbContext.ToListAsync());
+            var user = await GetCurrentUserAsync();
+            
+            if(user == null)
+            {
+                var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else if (user.IsVet == true)
+            {
+                var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet).Where(p => p.VetId == user.Id);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else if (user.IsVet == false)
+            {
+                var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet).Where(p => p.UserId == user.Id);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else
+            {
+                var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet);
+                return View(await applicationDbContext.ToListAsync());
+            }
         }
 
         // GET: Pets/Details/5
@@ -84,7 +104,7 @@ namespace BackendCapstone.Controllers
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers.Where(v => v.IsVet == true), "FullName", "FullName");
+            ViewData["VetId"] = new SelectList(_context.ApplicationUsers.Where(v => v.IsVet == true), "Id", "FullName");
             return View();
         }
 
@@ -125,7 +145,7 @@ namespace BackendCapstone.Controllers
                 return NotFound();
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", pet.UserId);
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", pet.VetId);
+            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "FullName", pet.VetId);
             return View(pet);
         }
 
@@ -140,6 +160,13 @@ namespace BackendCapstone.Controllers
             {
                 return NotFound();
             }
+
+            var user = await GetCurrentUserAsync();
+            pet.User = user;
+            pet.UserId = user.Id;
+
+            ModelState.Remove("User");
+            ModelState.Remove("UserId");
 
             if (ModelState.IsValid)
             {
@@ -162,7 +189,7 @@ namespace BackendCapstone.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", pet.UserId);
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", pet.VetId);
+            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "FullName", pet.VetId);
             return View(pet);
         }
 

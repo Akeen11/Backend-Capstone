@@ -13,15 +13,16 @@ namespace BackendCapstone.Models
 
         [Required]
         [Display(Name = "Send To:")]
-        public string VetId { get; set; }
+        public string ReceivingUserId { get; set; }
 
-        public ApplicationUser Vet { get; set; }
-
-        [Required]
-        public string UserId { get; set; }
+        public ApplicationUser ReceivingUser { get; set; }
 
         [Required]
-        public ApplicationUser User { get; set; }
+        [Display(Name = "Sender:")]
+        public string SendingUserId { get; set; }
+
+        [Required]
+        public ApplicationUser SendingUser { get; set; }
         
         [Required]
         public string Message { get; set; }

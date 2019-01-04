@@ -21,6 +21,7 @@ namespace BackendCapstone.Models
         public string UserId { get; set; }
 
         [Required]
+        [Display(Name = "Owner")]
         public ApplicationUser User { get; set; }
 
         [Required]

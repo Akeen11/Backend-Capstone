@@ -49,7 +49,7 @@ namespace BackendCapstone.Data
                 FirstName = "aaron",
                 LastName = "aaron",
                 StreetAddress = "123 Infinity Way",
-                IsVet = null,
+                IsVet = false,
                 UserName = "aaron@aaron.com",
                 NormalizedUserName = "AARON@AARON.COM",
                 Email = "aaron@aaron.com",
@@ -66,29 +66,29 @@ namespace BackendCapstone.Data
                 new Message()
                 {
                     MessageId = 1,
-                    UserId = user2.Id,
-                    VetId = user.Id,
+                    SendingUserId = user2.Id,
+                    ReceivingUserId = user.Id,
                     Messages = "Hi"
                 },
                 new Message()
                 {
                     MessageId = 2,
-                    UserId = user2.Id,
-                    VetId = user.Id,
+                    SendingUserId = user2.Id,
+                    ReceivingUserId = user.Id,
                     Messages = "Hello"
                 },
                 new Message()
                 {
                     MessageId = 3,
-                    UserId = user2.Id,
-                    VetId = user.Id,
+                    SendingUserId = user2.Id,
+                    ReceivingUserId = user.Id,
                     Messages = "How are you"
                 },
                 new Message()
                 {
                     MessageId = 4,
-                    UserId = user2.Id,
-                    VetId = user.Id,
+                    SendingUserId = user2.Id,
+                    ReceivingUserId = user.Id,
                     Messages = "I'm good"
                 }
             );
@@ -97,15 +97,15 @@ namespace BackendCapstone.Data
                 new Note()
                 {
                     NoteId = 1,
-                    UserId = user2.Id,
-                    VetId = user.Id,
+                    SendingUserId = user2.Id,
+                    ReceivingUserId = user.Id,
                     Message = "Get shots"
                 },
                 new Note()
                 {
                     NoteId = 2,
-                    UserId = user2.Id,
-                    VetId = user.Id,
+                    SendingUserId = user2.Id,
+                    ReceivingUserId = user.Id,
                     Message = "Happy pupper"
                 }
             );

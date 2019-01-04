@@ -13,10 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Vet)
+                @Html.DisplayNameFor(model => model.ReceivingUser)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                @Html.DisplayNameFor(model => model.SendingUser)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Message)
@@ -28,10 +28,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Vet.FirstName)
+                @Html.DisplayFor(modelItem => item.ReceivingUser.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.FirstName)
+                @Html.DisplayFor(modelItem => item.SendingUser.FullName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Message)
