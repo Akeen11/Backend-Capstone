@@ -57,15 +57,15 @@ namespace BackendCapstone.Controllers
         {
             var user = await GetCurrentUserAsync();
 
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            if (user.IsVet == null)
+            ViewData["SendingUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+            if (user.IsVet != true)
             {
-                ViewData["VetId"] = new SelectList(_context.ApplicationUsers.Where(v => v.IsVet == true), "FullName", "FullName");
+                ViewData["ReceivingUserId"] = new SelectList(_context.ApplicationUsers.Where(v => v.IsVet == true), "Id", "FullName");
                 return View();
             }
             else
             {
-                ViewData["VetId"] = new SelectList(_context.ApplicationUsers.Where(u => u.IsVet != true), "FullName", "FullName");
+                ViewData["ReceivingUserId"] = new SelectList(_context.ApplicationUsers.Where(u => u.IsVet != true), "Id", "FullName");
                 return View();
             }
         }
@@ -91,7 +91,7 @@ namespace BackendCapstone.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", note.SendingUserId);
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "FullName", "FullName", note.ReceivingUserId);
+            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "FullName", note.ReceivingUserId);
             return View(note);
         }
 

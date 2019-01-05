@@ -139,14 +139,24 @@ namespace BackendCapstone.Controllers
                 return NotFound();
             }
 
+            var user = await GetCurrentUserAsync();
+
             var pet = await _context.Pets.FindAsync(id);
             if (pet == null)
             {
                 return NotFound();
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", pet.UserId);
-            ViewData["VetId"] = new SelectList(_context.ApplicationUsers, "Id", "FullName", pet.VetId);
-            return View(pet);
+            if (user.IsVet != true)
+            {
+                ViewData["VetId"] = new SelectList(_context.ApplicationUsers.Where(v => v.IsVet == true), "Id", "FullName", pet.VetId);
+                return View(pet);
+            }
+            else
+            {
+                ViewData["VetId"] = new SelectList(_context.ApplicationUsers.Where(u => u.IsVet != true), "Id", "FullName", pet.VetId);
+                return View(pet);
+            }
         }
 
         // POST: Pets/Edit/5
