@@ -9,6 +9,9 @@ using BackendCapstone.Data;
 using BackendCapstone.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace BackendCapstone.Controllers
 {
@@ -16,12 +19,15 @@ namespace BackendCapstone.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHostingEnvironment _appEnvironment;
 
         public PetsController(ApplicationDbContext ctx,
-                          UserManager<ApplicationUser> userManager)
+                          UserManager<ApplicationUser> userManager,
+                          IHostingEnvironment appEnvironment)
         {
             _userManager = userManager;
             _context = ctx;
+            _appEnvironment = appEnvironment;
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
@@ -113,19 +119,40 @@ namespace BackendCapstone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PetId,VetId,UserId,Name,Age,Status,ImagePath")] Pet pet)
+        public async Task<IActionResult> Create([Bind("PetId,VetId,UserId,Name,Age,Status,ImagePath")] Pet pet, IFormFile file)
         {
-            var user = await GetCurrentUserAsync();
-            pet.User = user;
-            pet.UserId = user.Id;
-
             ModelState.Remove("UserId");
             ModelState.Remove("User");
 
+            // make sure file is selected
+            if (file == null || file.Length == 0) return Content("file not selected");
+
+            // get path location to store img
+            string path_Root = _appEnvironment.WebRootPath;
+
+            // get only file name without file path
+            var trimmedFileName = Guid.NewGuid().ToString() + Path.GetFileName(file.FileName);
+
+            // store file location
+            string path_to_Images = path_Root + "\\User_Files\\Images\\" + trimmedFileName;
+
             if (ModelState.IsValid)
             {
+                var user = await GetCurrentUserAsync();
+                pet.User = user;
+                pet.UserId = user.Id;
+
+                // copy file to target
+                using (var stream = new FileStream(path_to_Images, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                pet.ImagePath = trimmedFileName;
+
                 _context.Add(pet);
                 await _context.SaveChangesAsync();
+                ViewData["FilePath"] = path_to_Images;
                 return RedirectToAction(nameof(Index));
             }
             return View(pet);

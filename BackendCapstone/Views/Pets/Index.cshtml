@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
+                <img class="card-img-top plant_image center-block" src="~/User_Files/Images/@item.ImagePath" alt="Card image cap">
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PetId">Edit</a> |
