@@ -61,28 +61,8 @@ namespace BackendCapstone.Controllers
         // GET: Pets
         public async Task<IActionResult> Index()
         {
-            var user = await GetCurrentUserAsync();
-            
-            if(user == null)
-            {
                 var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet);
                 return View(await applicationDbContext.ToListAsync());
-            }
-            else if (user.IsVet == true)
-            {
-                var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet).Where(p => p.VetId == user.Id);
-                return View(await applicationDbContext.ToListAsync());
-            }
-            else if (user.IsVet == false)
-            {
-                var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet).Where(p => p.UserId == user.Id);
-                return View(await applicationDbContext.ToListAsync());
-            }
-            else
-            {
-                var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet);
-                return View(await applicationDbContext.ToListAsync());
-            }
         }
 
         // GET: Pets/Details/5
@@ -201,6 +181,7 @@ namespace BackendCapstone.Controllers
             var user = await GetCurrentUserAsync();
             pet.User = user;
             pet.UserId = user.Id;
+            pet.ImagePath = pet.ImagePath;
 
             ModelState.Remove("User");
             ModelState.Remove("UserId");
