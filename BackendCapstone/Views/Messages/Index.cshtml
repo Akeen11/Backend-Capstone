@@ -7,40 +7,20 @@
 <h2>Messages</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button type="button" class="btn"><a class="button-link" asp-action="Create">Create New Message</a></button>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SendingUser)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReceivingUser)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Messages)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SendingUser.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReceivingUser.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Messages)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.MessageId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MessageId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+    @foreach (var message in Model)
+    {
+        <div class="card" style="width: 75em; border: solid; padding: 1em; margin-bottom: 1em;">
+            <div class="card-body" style="flex-wrap: wrap;">
+                <h3 class="card-title">@message.SendingUser.FullName</h3>
+                <p><strong>@Html.DisplayNameFor(model => model.ReceivingUser)</strong> @message.ReceivingUser.FullName</p>
+                <p style="display: flex; flex:auto; flex-wrap: wrap;"><strong>Message:</strong></p>  
+                <p>@message.Messages</p>
+                <p>
+                    <a asp-action="Delete" asp-route-id="@message.MessageId">Delete</a>
+                </p>
+            </div>
+        </div>
+    }

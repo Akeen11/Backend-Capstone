@@ -45,13 +45,13 @@
             @Html.DisplayNameFor(model => model.ImagePath)
         </dt>
         <dd>
-            <img class="card-img-top plant_image center-block" src="~/User_Files/Images/@Model.ImagePath" alt="Card image cap">
+            <img class="card-img-top plant_image center-block" src="~/User_Files/Images/@Model.ImagePath" alt="Card image cap" style="height: 25em; width: 25em">
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="PetId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <input type="submit" value="Remove" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
     </form>
 </div>

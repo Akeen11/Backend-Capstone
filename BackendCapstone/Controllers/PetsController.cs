@@ -133,7 +133,7 @@ namespace BackendCapstone.Controllers
                 _context.Add(pet);
                 await _context.SaveChangesAsync();
                 ViewData["FilePath"] = path_to_Images;
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(VetUserIndex));
             }
             return View(pet);
         }

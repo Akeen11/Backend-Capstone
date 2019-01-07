@@ -28,8 +28,8 @@ namespace BackendCapstone.Data
 
             ApplicationUser user = new ApplicationUser
             {
-                FirstName = "admin",
-                LastName = "admin",
+                FirstName = "Admina",
+                LastName = "Straytor",
                 StreetAddress = "123 Infinity Way",
                 IsVet = true,
                 UserName = "admin@admin.com",
@@ -46,8 +46,8 @@ namespace BackendCapstone.Data
 
             ApplicationUser user2 = new ApplicationUser
             {
-                FirstName = "aaron",
-                LastName = "aaron",
+                FirstName = "Aaron",
+                LastName = "Keen",
                 StreetAddress = "123 Infinity Way",
                 IsVet = false,
                 UserName = "aaron@aaron.com",
@@ -118,7 +118,8 @@ namespace BackendCapstone.Data
                     VetId = user.Id,
                     Name = "Gunner",
                     Age = 1,
-                    Status = "Healthy"
+                    Status = "Healthy",
+                    ImagePath = "52e67e9a-244b-4da0-bcd1-821797071bc0Gunner.jpg"
                 },
                 new Pet()
                 {
@@ -127,7 +128,8 @@ namespace BackendCapstone.Data
                     VetId = user.Id,
                     Name = "Marley",
                     Age = 1,
-                    Status = "Sick"
+                    Status = "Sick",
+                    ImagePath = "602cf12f-10c8-4ec5-ad72-d39210abe270Marley.jpg"
                 },
                 new Pet()
                 {
@@ -136,7 +138,8 @@ namespace BackendCapstone.Data
                     VetId = user.Id,
                     Name = "Whitley",
                     Age = 1,
-                    Status = "Beat up"
+                    Status = "Beat up",
+                    ImagePath = "146c049f-9e78-4ccb-88a7-edcee0ba5b52Whitley.jpg"
                 },
                 new Pet()
                 {
@@ -145,7 +148,8 @@ namespace BackendCapstone.Data
                     VetId = user.Id,
                     Name = "Rocky",
                     Age = 1,
-                    Status = "Healthy"
+                    Status = "Healthy",
+                    ImagePath = "930153db-8cc9-43af-bf25-e5316e0d3fc0Rocky.jpg"
                 }
             );
 
