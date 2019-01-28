@@ -239,7 +239,7 @@ namespace BackendCapstone.Controllers
             var pet = await _context.Pets.FindAsync(id);
             _context.Pets.Remove(pet);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(VetUserIndex));
         }
 
         private bool PetExists(int id)
