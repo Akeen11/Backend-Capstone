@@ -32,6 +32,7 @@ namespace BackendCapstone.Controllers
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
+        // GET: Pets Home Page
         public async Task<IActionResult> VetUserIndex()
         {
             var user = await GetCurrentUserAsync();
@@ -43,19 +44,33 @@ namespace BackendCapstone.Controllers
 
             if (user.IsVet == true)
             {
-                var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet).Where(p => p.VetId == user.Id);
+                var applicationDbContext = _context.Pets.Include(p => p.User)
+                                                        .Include(p => p.Vet)
+                                                        .Where(p => p.VetId == user.Id);
                 return View(await applicationDbContext.ToListAsync());
             }
             else if (user.IsVet == false)
             {
-                var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet).Where(p => p.UserId == user.Id);
+                var applicationDbContext = _context.Pets.Include(p => p.User)
+                                                        .Include(p => p.Vet)
+                                                        .Where(p => p.UserId == user.Id);
                 return View(await applicationDbContext.ToListAsync());
             }
             else
             {
-                var applicationDbContext = _context.Pets.Include(p => p.User).Include(p => p.Vet);
+                var applicationDbContext = _context.Pets.Include(p => p.User)
+                                                        .Include(p => p.Vet);
                 return View(await applicationDbContext.ToListAsync());
             }
+        }
+
+        // GET: Pets From Search
+        public async Task<IActionResult> SearchResults(string search)
+        {
+            var applicationDbContext = _context.Pets.Include(p => p.User)
+                                                    .Include(p => p.Vet)
+                                                    .Where(p => p.Name.Contains(search) || p.User.FullName.Contains(search) || p.Vet.FullName.Contains(search) || p.Status.Contains(search));
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Pets
