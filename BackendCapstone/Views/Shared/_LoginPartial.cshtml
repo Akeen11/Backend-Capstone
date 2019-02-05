@@ -18,6 +18,10 @@
             </li>
         </ul>
     </form>
+
+    <form asp-controller="Pets" asp-action="SearchResults" method="get" class="navbar-form nav-search">
+        <input type="text" name="search" class="input-sm" placeholder="Search for a pet" />
+    </form>
 }
 else
 {
