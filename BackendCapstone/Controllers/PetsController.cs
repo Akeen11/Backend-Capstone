@@ -69,7 +69,7 @@ namespace BackendCapstone.Controllers
         {
             var applicationDbContext = _context.Pets.Include(p => p.User)
                                                     .Include(p => p.Vet)
-                                                    .Where(p => p.Name.Contains(search) || p.User.FullName.Contains(search) || p.Vet.FullName.Contains(search) || p.Status.Contains(search));
+                                                    .Where(p => p.Name.ToLower().Contains(search.ToLower()) || p.User.FullName.ToLower().Contains(search.ToLower()) || p.Vet.FullName.ToLower().Contains(search.ToLower()) || p.Status.ToLower().Contains(search.ToLower()));
             return View(await applicationDbContext.ToListAsync());
         }
 
